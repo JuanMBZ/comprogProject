@@ -1,29 +1,33 @@
 #include <stdio.h>
-#include <unistd.h>
-#include <string.h>
-#include "readkey.h"
+#include <stdlib.h>
 
 static char bar[] = "======================================="
 		    "======================================>";
-#define up() printf("\033[1A");
-#define down() printf("\033[1B");
-#define right() printf("\033[1C");
-#define left() printf("\033[1D");
 #define clear() printf("\033[2J");
+#define UP 'k';
+#define DOWN 'j';
+#define RIGHT 'l';
+#define LEFT 'h';
 
 int main() {
 	int i;
 	char dummy[100], direction;
-	for(int i=77; i>=0; i--) {
-		printf("[%s]\r", &bar[i]);
-		fflush(stdout);
-	}
-	printf("\n[%s]", bar); 
-	printf("\r     ");
-	fflush(stdout);
 	
-	down();down();
+	printf("[%s]\n[%s]\r", bar, bar);
+	fflush(stdout);
+	system("stty raw"); // reads stdin without the need for newline
+	system("stty -echo"); // turns of echo
+	while((direction=getchar())!='i') {
+		switch(direction) { //Uses linux terminal control sequences to move cursor
+			case UP: printf("\033[1A"); break;
+			case DOWN: printf("\033[1B"); break;
+			case RIGHT: printf("\033[1C"); break;
+			case LEFT: printf("\033[1D"); break;
+		}
+	}
+	system("stty -raw");
+	system("stty echo");
 	printf("here\n\n");
-
 	return 0;
 }
+

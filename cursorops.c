@@ -1,15 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
-#include <string.h>
 
 static char bar[] = "======================================="
 		    "======================================>";
-#define up() printf("\033[1A");
-#define down() printf("\033[1B");
-#define right() printf("\033[1C");
-#define left() printf("\033[1D");
 #define clear() printf("\033[2J");
+#define UP 'k';
+#define DOWN 'j';
+#define RIGHT 'l';
+#define LEFT 'h';
 
 int main() {
 	int i;
@@ -20,11 +18,11 @@ int main() {
 	system("stty raw"); // reads stdin without the need for newline
 	system("stty -echo"); // turns of echo
 	while((direction=getchar())!='i') {
-		switch(direction) {
-			case 'k': up(); break;
-			case 'j': down(); break;
-			case 'l': right(); break;
-			case 'h': left(); break;
+		switch(direction) { //Uses linux terminal control sequences to move cursor
+			case UP: printf("\033[1A"); break;
+			case DOWN: printf("\033[1B"); break;
+			case RIGHT: printf("\033[1C"); break;
+			case LEFT: printf("\033[1D"); break;
 		}
 	}
 	system("stty -raw");
