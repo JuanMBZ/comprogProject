@@ -13,26 +13,26 @@ typedef struct dNode {
 
 typedef struct line{
 	dNode *start;
-	struct line *prevline;
-	struct line *nextline;
+	struct line *prev_line;
+	struct line *next_line;
 	unsigned int size;
 } line;
 
 
 line* createList(FILE *file_in) {
 	dNode *curr;
-	line *head, *currline;
+	line *head, *curr_line;
 	int n=0;
 	char c;
 	//Initialize line start
 	head=(line*)malloc(sizeof(line));
-	currline=head;
-	currline->prevline=NULL;
+	curr_line=head;
+	curr_line->prev_line=NULL;
 
 	while(fscanf(file_in, "%c", &c)!=EOF) {//Iterate until EOF
 		if(n==0) {
-			currline->start=(dNode*) malloc(sizeof(dNode));
-			curr=currline->start;
+			curr_line->start=(dNode*) malloc(sizeof(dNode));
+			curr=curr_line->start;
 			curr->prev=NULL;
 			curr->ch=c;
 		}
@@ -44,17 +44,17 @@ line* createList(FILE *file_in) {
 		}
 		n++;
 		if(c=='\n') {//If current char is a newline character make a new line
-			currline->size=n-1;//record line size
-			currline->nextline=(line*)malloc(sizeof(line));
-			(currline->nextline)->prevline=currline;
-			currline=currline->nextline;
-			n=0;
+			curr_line->size=n-1;//record line size
+			curr_line->next_line=(line*)malloc(sizeof(line));
+			(curr_line->next_line)->prev_line=curr_line;
+			curr_line=curr_line->next_line;
+			n=0; //restart count
 			curr->next=NULL; //assigns null to last node
 		}
 	}
-	currline=currline->prevline;
-	free(currline->nextline); //frees the last line cause, for some reason, text files in linux ends with a \n
-	currline->nextline=NULL;
+	curr_line=curr_line->prev_line;
+	free(curr_line->next_line); //frees the last line cause, for some reason, text files in linux ends with a \n
+	curr_line->next_line=NULL;
 	curr->next=NULL;
 	return head;
 }
@@ -63,7 +63,7 @@ void displayLine(dNode* head) {
 	dNode *curr=head;
 	int count=0;
 	while(curr!=NULL) {
-		printf("%c", curr->ch);
+		putchar(curr->ch);
 		count++;
 		curr=curr->next;
 	}
@@ -75,19 +75,19 @@ void display(line *head) {
 	while(curr!=NULL) {
 		displayLine(curr->start);
 		count++;
-		curr=curr->nextline;
+		curr=curr->next_line;
 	}
-	printf("\nNumber of lines printed: %d\n", count);
+	printf("Number of lines printed: %d\n", count);
 }
 
 void displayend(line *head) {
 	line *curr=head;
 	int count=0;
-	while(curr->nextline!=NULL) curr=curr->nextline;
+	while(curr->next_line!=NULL) curr=curr->next_line;
 	while(curr!=NULL) {
 		displayLine(curr->start);
 		count++;
-		curr=curr->prevline;
+		curr=curr->prev_line;
 	}
 	printf("\nNumber of lines printed: %d\n", count);
 }
