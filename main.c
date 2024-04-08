@@ -3,7 +3,6 @@
 #include "dlinkedlist.h"
 #include "modes.h"
 
-
 #define clear() printf("\033[2J")
 #define cursor_start() printf("\033[H")
 #define cursorto(x,y) printf("\033[%u;%uH", (y), (x))
@@ -12,7 +11,8 @@
 #define RIGHT 'l'
 #define LEFT 'h'
 #define INSERT 'i'
-//add code/ops for reading and writing to file here
+//Add code/ops for reading and writing to file here
+//Add terminal scrolling up and down, terminal resizing, showing info at bottom of terminal
 void init_terminal(line **a, dNode **b, FILE *in);//prepares terminal
 
 int main(int argc, char *argv[]) {

@@ -5,6 +5,7 @@
 // Add Navigation, Write, and Select Mode.
 // Functions for navigation
 // Possible Additions: Moving word by word, Moving a specified number of times in one direction
+// Other features: Undo, Search and replace
 
 void mv_up(unsigned int *x, unsigned int *y, line **a, dNode **b);
 void mv_down(unsigned int *x, unsigned int *y, line **a, dNode **b);
