@@ -61,10 +61,9 @@ line* createList(FILE *file_in) {
 
 void displayLine(dNode* head) {
 	dNode *curr=head;
-	int count=0;
 	while(curr!=NULL) {
 		putchar(curr->ch);
-		count++;
+		fflush(stdout); // used so stdout is immediately shown to screen
 		curr=curr->next;
 	}
 }
@@ -77,7 +76,7 @@ void display(line *head) {
 		count++;
 		curr=curr->next_line;
 	}
-	printf("Number of lines printed: %d\n", count);
+//	printf("Number of lines printed: %d\n", count);
 }
 
 void displayend(line *head) {

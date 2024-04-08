@@ -4,15 +4,19 @@
 static char bar[] = "======================================="
 		    "======================================>";
 #define clear() printf("\033[2J");
-#define UP 'k';
-#define DOWN 'j';
-#define RIGHT 'l';
-#define LEFT 'h';
+#define UP 'k'
+#define DOWN 'j'
+#define RIGHT 'l'
+#define LEFT 'h'
 // Add Navigation, Write, and Select Mode.
+
+
 int main() {
 	int i;
-	char dummy[100], direction;
+	char direction;
 	
+	clear();
+	printf("\033[H");
 	printf("[%s]\n[%s]\r", bar, bar);
 	fflush(stdout);
 	system("stty raw"); // reads stdin without the need for newline
