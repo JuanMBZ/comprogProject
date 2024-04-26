@@ -1,3 +1,6 @@
+For improvements:
+- remove new line from linked least, head straight to NULL after a \n, for displaying print a \n after encountering a NULL.
+
 additional:
 - add code for undo
 - add code for search and replace

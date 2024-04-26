@@ -1,8 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-/* Contains code for node struct and creating/displaying heads/list
- * Code for other list ops is at dataops
+/* header file for node struct and creating/displaying heads/list
  */
 
 typedef struct dNode {
@@ -53,7 +52,7 @@ line* createList(FILE *file_in) {
 		}
 	}
 	curr_line=curr_line->prev_line;
-	free(curr_line->next_line); //frees the last line cause, for some reason, text files in linux ends with a \n
+	free(curr_line->next_line); //frees the last line because, for some reason, text files in linux ends with a \n
 	curr_line->next_line=NULL;
 	curr->next=NULL;
 	return head;
@@ -64,6 +63,14 @@ void displayLine(dNode* head) {
 	while(curr!=NULL) {
 		putchar(curr->ch);
 		fflush(stdout); // used so stdout is immediately shown to screen
+		curr=curr->next;
+	}
+}
+
+void write_line(dNode* head, FILE *out) {
+	dNode *curr=head;
+	while(curr!=NULL) {
+		fputc(curr->ch, out);
 		curr=curr->next;
 	}
 }
